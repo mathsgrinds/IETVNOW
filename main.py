@@ -54,15 +54,19 @@ def utv():
 		   return(url)
 
 def tv3():
-	url = "http://www.tv3.ie/3player/live/tv3/"
-	website = urllib2.urlopen(url)
-	html = website.read()
-	links = re.findall('"((http|ftp)s?://.*?)"', html)
-	for link in links:
-	   if "m3u8" in link[0]:
-		   url=link[0]
-		   url = url.replace("&","%26")
-		   return(url)
+    url = "http://www.tv3.ie/3player/live/tv3/"
+    website = urllib2.urlopen(url)
+    html = website.read()
+    uniques = re.findall('"(/3player/assets/css/global_v4\.css\?ver\=1\.2\&t\=.*?)"', html)
+    for unique in uniques:
+            u = unique.replace("/3player/assets/css/global_v4.css?ver=1.2&t=","")
+    links = re.findall('"((http|ftp)s?://.*?)"', html)
+    for link in links:
+       if "m3u8" in link[0]:
+           url=link[0]
+           url = url.replace("&","%26")
+           url = url+"&unique="+u
+           return(url)
 	
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
