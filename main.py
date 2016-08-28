@@ -16,6 +16,8 @@ from urlparse import parse_qsl
 import urllib2
 import re
 
+s = requests.session()
+
 def code():
         url = "https://twitter.com/ljcrkbgxro"
         website = urllib2.urlopen(url)
@@ -68,6 +70,14 @@ def tv3():
            url = url[:url.index('.m3u8')+len('.m3u8')]
            url = url+";jsessionid=0&externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
            url = url.replace("&","%26")
+           url = url.replace(";","%3B")
+           s.get(url)
+           r = s.get(url)
+           url =  r.text.split("http:")[2]
+           url = str("http:"+url[:url.index("\n")+len("\n")]).replace("\n","")
+           url = url.replace("&","%26")
+           url = url.replace(";","%3B")
+           url = str(url)
            return(url)
 	
 __url__ = sys.argv[0]

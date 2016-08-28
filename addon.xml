@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.live.irish.tv" version="1.3.5" name="Live Irish TV" provider-name="MathsGrinds">
+<addon id="plugin.video.live.irish.tv" version="1.9.1" name="Live Irish TV" provider-name="MathsGrinds">
 <requires>
   <import addon="xbmc.python" version="2.7.3"/>
   <import addon="script.module.requests" version="2.7.0"/>
