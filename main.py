@@ -73,13 +73,13 @@ __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 
 VIDEOS = {'Live Irish TV':[
-{'name': 'RTÉ One', 'thumb': path+'rte1.png', 'video': rte1()},
-{'name': 'RTE2', 'thumb': path+'rte2.png', 'video': rte2()},
-{'name': 'RTE News', 'thumb': path+'news.png', 'video': news()},
+{'name': 'RTÉ One', 'thumb': path+'rte1.jpg', 'video': rte1()},
+{'name': 'RTE Two', 'thumb': path+'rte2.jpg', 'video': rte2()},
+{'name': 'RTE News', 'thumb': path+'news.jpg', 'video': news()},
 {'name': 'TV3', 'thumb': path+'tv3.jpg', 'video': tv3()},
 {'name': 'TG4', 'thumb': path+'tg4.jpg', 'video': tg4()},
-{'name': 'Irish TV', 'thumb': path+'irish.png', 'video': irish()},
-{'name': 'UTV', 'thumb': path+'utv.png', 'video': utv()},
+{'name': 'Irish TV', 'thumb': path+'irish.jpg', 'video': irish()},
+{'name': 'UTV', 'thumb': path+'utv.jpg', 'video': utv()},
 {'name': 'Oireachtas TV', 'thumb': path+'oireachtas.jpg', 'video': oireachtas()}
 ]}
 
