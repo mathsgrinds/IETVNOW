@@ -63,7 +63,7 @@ def tv3():
     links = re.findall('"((http|ftp)s?://.*?)"', html)
     for link in links:
        if "m3u8" in link[0]:
-           url=link[0]
+           url = link[0]
            url = url+";externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
            url = url.replace("&","%26")
            return(url)
