@@ -66,7 +66,7 @@ def tv3():
            url = link[0]
            url = str(url)
            url = url[:url.index('.m3u8')+len('.m3u8')]
-           url = url+";externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
+           url = url+";jsessionid=0&externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
            url = url.replace("&","%26")
            return(url)
 	
