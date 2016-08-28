@@ -64,6 +64,8 @@ def tv3():
     for link in links:
        if "m3u8" in link[0]:
            url = link[0]
+           url = str(url)
+           url = url[:url.index('.m3u8')+len('.m3u8')]
            url = url+";externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
            url = url.replace("&","%26")
            return(url)
@@ -73,14 +75,14 @@ __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 
 VIDEOS = {'Live Irish TV':[
-{'name': 'RTÉ One', 'thumb': path+'rte1.jpg', 'video': rte1()},
-{'name': 'RTE Two', 'thumb': path+'rte2.jpg', 'video': rte2()},
-{'name': 'RTE News', 'thumb': path+'news.jpg', 'video': news()},
-{'name': 'TV3', 'thumb': path+'tv3.jpg', 'video': tv3()},
-{'name': 'TG4', 'thumb': path+'tg4.jpg', 'video': tg4()},
-{'name': 'Irish TV', 'thumb': path+'irish.jpg', 'video': irish()},
-{'name': 'UTV', 'thumb': path+'utv.jpg', 'video': utv()},
-{'name': 'Oireachtas TV', 'thumb': path+'oireachtas.jpg', 'video': oireachtas()}
+{'name': 'RTÉ One', 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
+{'name': 'RTE Two', 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
+{'name': 'RTE News', 'thumb': path+'news_logo.jpg', 'video': news()},
+{'name': 'TV3', 'thumb': path+'tv3_logo.jpg', 'video': tv3()},
+{'name': 'TG4', 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
+{'name': 'Irish TV', 'thumb': path+'irish_logo.jpg', 'video': irish()},
+{'name': 'UTV', 'thumb': path+'utv_logo.jpg', 'video': utv()},
+{'name': 'Oireachtas TV', 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
 ]}
 
 def get_categories():
