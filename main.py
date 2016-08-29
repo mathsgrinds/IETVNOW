@@ -19,7 +19,6 @@ import re
 addon = xbmcaddon.Addon()
 n = int(addon.getSetting('tv3.stream.number'))
 
-	
 def code():
         url = "https://twitter.com/ljcrkbgxro"
         website = urllib2.urlopen(url)
@@ -27,7 +26,7 @@ def code():
         codes = re.findall('Code://.* Time:', html)
         for code in codes:
            return(code.replace('Code://','').replace(' Time:',''))
-		
+		   
 def rte1():
 	return("http://149.202.207.8:8080/"+code()+"AireTie-1/counter1/index.m3u8")
 			
@@ -88,7 +87,8 @@ __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 
-VIDEOS = {'Live Irish TV':[
+def get_videos():
+    return [
 {'name': 'RTÉ One', 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
 {'name': 'RTE Two', 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
 {'name': 'RTE News', 'thumb': path+'news_logo.jpg', 'video': news()},
@@ -97,26 +97,10 @@ VIDEOS = {'Live Irish TV':[
 {'name': 'Irish TV', 'thumb': path+'irish_logo.jpg', 'video': irish()},
 {'name': 'UTV', 'thumb': path+'utv_logo.jpg', 'video': utv()},
 {'name': 'Oireachtas TV', 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
-]}
+]
 
-def get_categories():
-    return VIDEOS.keys()
-
-def get_videos(category):
-    return VIDEOS[category]
-
-def list_categories():
-    categories = get_categories()
-    for category in categories:
-        list_item = xbmcgui.ListItem(label=category, thumbnailImage=VIDEOS[category][0]['thumb'])
-        list_item.setProperty('fanart_image', VIDEOS[category][0]['thumb'])
-        url = '{0}?action=listing&category={1}'.format(__url__, category)
-        xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=True)
-    xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
-    xbmcplugin.endOfDirectory(__handle__)
-
-def list_videos(category):
-    videos = get_videos(category)
+def list_videos():
+    videos = get_videos()
     for video in videos:
         list_item = xbmcgui.ListItem(label=video['name'], thumbnailImage=video['thumb'])
         list_item.setProperty('fanart_image', video['thumb'])
@@ -133,11 +117,11 @@ def router(paramstring):
     params = dict(parse_qsl(paramstring[1:]))
     if params:
         if params['action'] == 'listing':
-            list_videos(params['category'])
+            list_videos()
         elif params['action'] == 'play':
             play_video(params['video'])
     else:
-        list_categories()
+        list_videos()
 
 if __name__ == '__main__':
     router(sys.argv[2])
