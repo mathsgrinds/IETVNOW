@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="32001">
-		<setting id="tv3.stream.number" label="tv3.stream.number" type="select" default="1" values="1|2|3|4|5" />
+		<setting id="tv3.stream.number" label="TV3 Stream Number:" type="select" default="1" values="1|2|3|4|5|6" />
     </category>
 </settings>

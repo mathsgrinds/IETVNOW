@@ -58,7 +58,7 @@ def utv():
 
 def tv3(n):
     url = "http://www.tv3.ie/3player/live/tv3/"
-    URL = ["","","","","",""]
+    URL = ["","","","","","",""]
     website = urllib2.urlopen(url)
     html = website.read()
     uniques = re.findall('"(/3player/assets/css/global_v4\.css\?ver\=1\.2\&t\=.*?)"', html)
@@ -79,9 +79,10 @@ def tv3(n):
            for link in response.text.split("http://"):
                if "3.m3u8" in link:
                    url = str("http://"+str(link)).split("\n")[0]
-           url = url.replace("&","%26").replace("\n","")
-           URL[5] = url
-           return(URL[n])
+           URL[6] = url
+           URL[5] = url.replace("?externalId=tv3-prd","")
+           r = requests.get("http://www.tv3.ie/3player/live/tv3/")
+           return(URL[n].replace("&","%26").replace("\n",""))
 	
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
