@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # Module: default
 # Author: MathsGrinds
 # Created on: 03.04.2016
@@ -26,7 +26,26 @@ def code():
         codes = re.findall('Code://.* Time:', html)
         for code in codes:
            return(code.replace('Code://','').replace(' Time:',''))
-		   
+
+def check(url):
+	OK = "  [COLOR green][OK][/COLOR]"
+	DOWN = "  [COLOR red][DOWN][/COLOR]"
+	try:
+		req = urllib2.Request(url)
+		try:
+			resp = urllib2.urlopen(req)
+		except urllib2.HTTPError as e:
+			if e.code == 404:
+				return DOWN
+			else:
+				return OK
+		except urllib2.URLError as e:
+			return DOWN
+		else:
+			return OK
+	except:
+		return DOWN
+
 def rte1():
 	return("http://149.202.207.8:8080/"+code()+"AireTie-1/counter1/index.m3u8")
 			
@@ -90,14 +109,14 @@ path = sys.path[0]+"/"
 
 def get_videos():
     return [
-{'name': 'RTÉ One', 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
-{'name': 'RTE Two', 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
-{'name': 'RTE News', 'thumb': path+'news_logo.jpg', 'video': news()},
-{'name': 'TV3', 'thumb': path+'tv3_logo.jpg', 'video': tv3(n)},
-{'name': 'TG4', 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
-{'name': 'Irish TV', 'thumb': path+'irish_logo.jpg', 'video': irish()},
-{'name': 'UTV', 'thumb': path+'utv_logo.jpg', 'video': utv()},
-{'name': 'Oireachtas TV', 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
+{'name': 'RTÉ One'+check(rte1()), 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
+{'name': 'RTE Two'+check(rte2()), 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
+{'name': 'RTE News'+check(news()), 'thumb': path+'news_logo.jpg', 'video': news()},
+{'name': 'TV3'+check(tv3(n)), 'thumb': path+'tv3_logo.jpg', 'video': tv3(n)},
+{'name': 'TG4'+check(tg4()), 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
+{'name': 'Irish TV'+check(irish()), 'thumb': path+'irish_logo.jpg', 'video': irish()},
+{'name': 'UTV'+check(utv()), 'thumb': path+'utv_logo.jpg', 'video': utv()},
+{'name': 'Oireachtas TV'+check(oireachtas()), 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
 ]
 
 def list_videos():
