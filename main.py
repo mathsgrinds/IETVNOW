@@ -59,7 +59,7 @@ def tg4():
 	return('http://csm-e.cds1.yospace.com/csm/live/74246540.m3u8')
 		
 def irish():
-	return('http://cdn.irishtv.arqiva.org/live-audio_track=96000-video=1900000.m3u8')
+	return('http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8')
 				   
 def oireachtas():
 	return('https://media.heanet.ie/transcode05/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8?DVR')
