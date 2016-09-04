@@ -46,7 +46,7 @@ def check(name, url):
 	MAYBE = "[COLOR yellow]"+name+"[/COLOR]"
 	try:
 		a=urllib.urlopen(url)
-		if a.getcode() == 404:
+		if a.getcode() == 404 or url == "":
 			return DOWN
 		else:
 			return OK
