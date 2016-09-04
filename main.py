@@ -20,37 +20,50 @@ addon = xbmcaddon.Addon()
 n = int(addon.getSetting('tv3.stream.number'))
 
 def code():
-        url = "https://twitter.com/ljcrkbgxro"
-        website = urllib2.urlopen(url)
-        html = website.read()
-        codes = re.findall('Code://.* Time:', html)
-        for code in codes:
-           return(code.replace('Code://','').replace(' Time:',''))
+    url = "https://twitter.com/ljcrkbgxro"
+    website = urllib2.urlopen(url)
+    html = website.read()
+    codes = re.findall('Token://.* Time:', html)
+    for code in codes:
+		return(code.replace('Token://','').replace(' Time:',''))
 
-def check(url):
-	OK = "  [COLOR green][OK][/COLOR]"
-	DOWN = "  [COLOR red][DOWN][/COLOR]"
+def stream(station):
 	try:
-		req = urllib2.Request(url)
-		try:
-			resp = urllib2.urlopen(req)
-		except urllib2.HTTPError as e:
-			if e.code == 404:
-				return DOWN
-			else:
-				return OK
-		except urllib2.URLError as e:
+		url = "https://api.aertv.ie/v2/players/"+station+"?user_token="+code()
+		website = urllib2.urlopen(url)
+		html = website.read()
+		links = re.findall('"rtmp:.*"', html)
+		links = links[0].split(",")
+		link = links[0]
+		link = link.replace("\/","/").replace('"','').replace("&","%26").replace("\n","")
+		return link
+	except:
+		return ""
+
+def check(name, url):
+	OK = "[COLOR green]"+name+"[/COLOR]"
+	DOWN = "[COLOR red]"+name+"[/COLOR]"
+	MAYBE = "[COLOR yellow]"+name+"[/COLOR]"
+	try:
+		a=urllib.urlopen(url)
+		if a.getcode() == 404:
 			return DOWN
 		else:
 			return OK
 	except:
-		return DOWN
+		return MAYBE
 
 def rte1():
-	return("http://149.202.207.8:8080/"+code()+"AireTie-1/counter1/index.m3u8")
-			
+	return stream("rte-one")
+
 def rte2():
-	return("http://149.202.207.8:8080/"+code()+"AireTie-2/counter1/index.m3u8")
+	return stream("rte-two")
+
+def rtejr():
+	return stream("rtejr")
+
+def threeE():
+	return stream("3e")
 	
 def news():
 	return('http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8')
@@ -77,7 +90,7 @@ def utv():
 
 def tv3(n):
     url = "http://www.tv3.ie/3player/live/tv3/"
-    URL = ["","","","","","",""]
+    URL = ["","","","","","","","",""]
     website = urllib2.urlopen(url)
     html = website.read()
     uniques = re.findall('"(/3player/assets/css/global_v4\.css\?ver\=1\.2\&t\=.*?)"', html)
@@ -86,22 +99,23 @@ def tv3(n):
     links = re.findall('"((http|ftp)s?://.*?)"', html)
     for link in links:
        if "m3u8" in link[0]:
-           url = link[0]
-           url = str(url)
-           URL[2] = url
-           url = url[:url.index('.m3u8')+len('.m3u8')]
-           URL[1] = url
-           url = url+";jsessionid=0&externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
-           URL[4] = url
-           URL[3] = url.replace(";jsessionid=0&","?")
-           response = requests.session().get(url)
-           for link in response.text.split("http://"):
-               if "3.m3u8" in link:
-                   url = str("http://"+str(link)).split("\n")[0]
-           URL[6] = url
-           URL[5] = url.replace("?externalId=tv3-prd","")
-           r = requests.get("http://www.tv3.ie/3player/live/tv3/")
-           return(URL[n].replace("&","%26").replace("\n",""))
+			url = link[0]
+			url = str(url)
+			URL[2] = url
+			url = url[:url.index('.m3u8')+len('.m3u8')]
+			URL[1] = url
+			url = url+";jsessionid=0&externalId=tv3-prd&yo.ac=true&yo.sl=3&yo.po=5&yo.ls=1,2,3&unique="+u
+			URL[4] = url
+			URL[3] = url.replace(";jsessionid=0&","?")
+			response = requests.session().get(url)
+			for link in response.text.split("http://"):
+				if "3.m3u8" in link:
+					url = str("http://"+str(link)).split("\n")[0]
+			URL[6] = url
+			URL[5] = url.replace("?externalId=tv3-prd","")
+			r = requests.get("http://www.tv3.ie/3player/live/tv3/")
+			URL[0] = stream("tv3")
+			return(URL[n].replace("&","%26").replace("\n",""))
 	
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
@@ -109,14 +123,16 @@ path = sys.path[0]+"/"
 
 def get_videos():
     return [
-{'name': 'RTÉ One'+check(rte1()), 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
-{'name': 'RTE Two'+check(rte2()), 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
-{'name': 'RTE News'+check(news()), 'thumb': path+'news_logo.jpg', 'video': news()},
-{'name': 'TV3'+check(tv3(n)), 'thumb': path+'tv3_logo.jpg', 'video': tv3(n)},
-{'name': 'TG4'+check(tg4()), 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
-{'name': 'Irish TV'+check(irish()), 'thumb': path+'irish_logo.jpg', 'video': irish()},
-{'name': 'UTV'+check(utv()), 'thumb': path+'utv_logo.jpg', 'video': utv()},
-{'name': 'Oireachtas TV'+check(oireachtas()), 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
+{'name': check('RTÉ One', rte1()), 'thumb': path+'rte1_logo.jpg', 'video': rte1()},
+{'name': check('RTE Two', rte2()), 'thumb': path+'rte2_logo.jpg', 'video': rte2()},
+{'name': check('RTE Jr', rtejr()), 'thumb': path+'rtejr_logo.jpg', 'video': rtejr()},
+{'name': check('RTE News', news()), 'thumb': path+'news_logo.jpg', 'video': news()},
+{'name': check('3e', threeE()), 'thumb': path+'3e_logo.jpg', 'video': threeE()},
+{'name': check('TV3', tv3(n)), 'thumb': path+'tv3_logo.jpg', 'video': tv3(n)},
+{'name': check('TG4', tg4()), 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
+{'name': check('Irish TV', irish()), 'thumb': path+'irish_logo.jpg', 'video': irish()},
+{'name': check('UTV', utv()), 'thumb': path+'utv_logo.jpg', 'video': utv()},
+{'name': check('Oireachtas TV', oireachtas()), 'thumb': path+'oireachtas_logo.jpg', 'video': oireachtas()}
 ]
 
 def list_videos():

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.live.irish.tv" version="1.9.9" name="Live Irish TV" provider-name="MathsGrinds">
+<addon id="plugin.video.live.irish.tv" version="2.0.0" name="Live Irish TV" provider-name="MathsGrinds">
 <requires>
   <import addon="xbmc.python" version="2.7.3"/>
   <import addon="script.module.requests" version="2.7.0"/>
@@ -9,7 +9,7 @@
   <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-  <summary lang="en">Simply plays live Irish TV (RTE1, RTE2, TV3, TG4, UTV, Irish TV, RTE News and Oireachtas TV)</summary>
+  <summary lang="en">Simply plays live Irish TV (RTE1, RTE2, RTE JR, 3e, TV3, TG4, UTV, Irish TV, RTE News and Oireachtas TV)</summary>
   <description lang="en">I just want a simple kodi addon that plays live irish tv (and works) and so I made one myself, my first addon :)</description>
   <disclaimer lang="en">I do work with or am affiliated with any of the websites shown in this addon this addon simply provides links to video streams which are on the web already. I have no ownership or responsiblity over said video streams.</disclaimer>
 </extension>
