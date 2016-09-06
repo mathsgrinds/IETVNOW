@@ -2,5 +2,6 @@
 <settings>
     <category label="32001">
 		<setting id="tv3.stream.number" label="TV3 Stream Number:" type="select" default="4" values="0|1|2|3|4|5|6" />
+		<setting id="quality" label="Stream Quality:" type="select" default="SD" values="SD|HD" />
     </category>
 </settings>

@@ -18,6 +18,7 @@ import re
 
 addon = xbmcaddon.Addon()
 n = int(addon.getSetting('tv3.stream.number'))
+quality = str(addon.getSetting('quality'))
 
 def code():
     url = "https://twitter.com/ljcrkbgxro"
@@ -34,8 +35,11 @@ def stream(station):
 		html = website.read()
 		links = re.findall('"rtmp:.*"', html)
 		links = links[0].split(",")
-		link = links[0]
-		link = link.replace("\/","/").replace('"','').replace("&","%26").replace("\n","")
+		if quality == "HD":
+			link = links[3]
+		else:
+			link = links[0]
+		link = link.replace("\/","/").replace('"','').replace("&","%26").replace("\n","").replace("{source:","")
 		return link
 	except:
 		return ""
@@ -109,8 +113,12 @@ def tv3(n):
 			URL[3] = url.replace(";jsessionid=0&","?")
 			response = requests.session().get(url)
 			for link in response.text.split("http://"):
-				if "3.m3u8" in link:
-					url = str("http://"+str(link)).split("\n")[0]
+				if quality == "HD":
+					if "4.m3u8" in link:
+						url = str("http://"+str(link)).split("\n")[0]
+				else:
+					if "2.m3u8" in link:
+						url = str("http://"+str(link)).split("\n")[0]
 			URL[6] = url
 			URL[5] = url.replace("?externalId=tv3-prd","")
 			r = requests.get("http://www.tv3.ie/3player/live/tv3/")
