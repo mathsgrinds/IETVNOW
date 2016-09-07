@@ -17,6 +17,7 @@ import urllib2
 import re
 
 addon = xbmcaddon.Addon()
+
 n = int(addon.getSetting('tv3.stream.number'))
 quality = str(addon.getSetting('quality'))
 
@@ -92,7 +93,7 @@ def utv():
 		   url = url.replace("&","%26")
 		   return(url)
 
-def tv3(n):
+def tv3():
     url = "http://www.tv3.ie/3player/live/tv3/"
     URL = ["","","","","","","","",""]
     website = urllib2.urlopen(url)
@@ -136,7 +137,7 @@ def get_videos():
 {'name': check('RTE Jr', rtejr()), 'thumb': path+'rtejr_logo.jpg', 'video': rtejr()},
 {'name': check('RTE News', news()), 'thumb': path+'news_logo.jpg', 'video': news()},
 {'name': check('3e', threeE()), 'thumb': path+'3e_logo.jpg', 'video': threeE()},
-{'name': check('TV3', tv3(n)), 'thumb': path+'tv3_logo.jpg', 'video': tv3(n)},
+{'name': check('TV3', tv3()), 'thumb': path+'tv3_logo.jpg', 'video': tv3()},
 {'name': check('TG4', tg4()), 'thumb': path+'tg4_logo.jpg', 'video': tg4()},
 {'name': check('Irish TV', irish()), 'thumb': path+'irish_logo.jpg', 'video': irish()},
 {'name': check('UTV', utv()), 'thumb': path+'utv_logo.jpg', 'video': utv()},
