@@ -20,6 +20,8 @@ addon = xbmcaddon.Addon()
 
 quality = str(addon.getSetting('quality'))
 
+tv3_stream = str(addon.getSetting('tv3'))
+
 def code():
     url = "https://twitter.com/ljcrkbgxro"
     website = urllib2.urlopen(url)
@@ -72,14 +74,26 @@ __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 
+def tv3():
+	if tv3_stream == "AERTV.ie":
+		return(AerTV("tv3"))
+	else:
+		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8')
+		
+def three_e():
+	if tv3_stream == "AERTV.ie":
+		return(AerTV("3e"))
+	else:
+		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
+
 def streams():
     return [
 {'name': check('RTÉ One', AerTV("rte-one")), 'thumb': path+'resources/logos/RTE1.png', 'link': AerTV("rte-one")},
 {'name': check('RTE Two', AerTV("rte-two")), 'thumb': path+'resources/logos/RTE2.png', 'link': AerTV("rte-two")},
 {'name': check('RTE Jr', AerTV("rtejr")), 'thumb': path+'resources/logos/RTEjr.png', 'link': AerTV("rtejr")},
-{'name': check('RTE News Now', 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'), 'thumb': path+'resources/logos/RTE_News_Now.jpg', 'link': 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'},
-{'name': check('3e', 'http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8'), 'thumb': path+'resources/logos/3e.png', 'link': 'http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8'},
-{'name': check('TV3', 'http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8'), 'thumb': path+'resources/logos/TV3.png', 'link': 'http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8'},
+{'name': check('RTE News Now', 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'},
+{'name': check('3e', three_e()), 'thumb': path+'resources/logos/3e.png', 'link': three_e()},
+{'name': check('TV3', tv3()), 'thumb': path+'resources/logos/TV3.png', 'link': tv3()},
 {'name': check('TG4', 'http://csm-e.cds1.yospace.com/csm/live/74246540.m3u8'), 'thumb': path+'resources/logos/TG4.png', 'link': 'http://csm-e.cds1.yospace.com/csm/live/74246540.m3u8'},
 {'name': check('Irish TV', 'http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8'), 'thumb': path+'resources/logos/IrishTV.png', 'link': 'http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8'},
 {'name': check('UTV', utv()), 'thumb': path+'resources/logos/UTV.png', 'link': utv()},

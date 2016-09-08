@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="32001">
-		<setting id="tv3.stream.number" label="TV3 Stream Number:" type="select" default="4" values="0|1|2|3|4|5|6" />
+		<setting id="tv3" label="3e and TV3 Source:" type="select" default="TV3.ie" values="3e/TV3 Website|AERTV.ie" />
 		<setting id="quality" label="Stream Quality:" type="select" default="HD" values="SD|HD" />
     </category>
 </settings>
