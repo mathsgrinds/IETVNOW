@@ -17,6 +17,7 @@ import urllib2
 import re
 import cookielib
 from time import gmtime, strftime
+import json
 
 #Settings
 addon = xbmcaddon.Addon()
@@ -33,31 +34,29 @@ def token():
         response = opener.open(req)
         source = response.read()
         response.close()
-        if re.search('"statusCode":200,"statusMessage":"OK"',source,re.IGNORECASE):
-            for s in source.split(","):
-                if "user_token" in s:
-                    return s.replace('"data":{"user_token":"','').replace('"','')
-                    break
-        return ""
+        j = json.loads(source)
+        token = j[u"data"][u"user_token"]
+        return token
     except:
         return ""
 
 def AerTV(station):
-	try:
-		
-		url = "https://api.aertv.ie/v2/players/"+station+"?user_token="+token()
-		website = urllib2.urlopen(url)
-		html = website.read()
-		links = re.findall('"rtmp:.*"', html)
-		links = links[0].split(",")
-		if quality == "HD":
-			link = links[3]
-		else:
-			link = links[0]
-		link = link.replace("\/","/").replace('"','').replace("&","%26").replace("\n","").replace("{source:","")
-		return link
-	except:
-		return ""
+    try:
+        url = "https://api.aertv.ie/v2/players/"+station+"?user_token="+token()
+        website = urllib2.urlopen(url)
+        html = website.read()               
+        j = json.loads(html)
+        for item in j[u"data"][u"urls"][u"stream"][u"rtmp"]:
+            if item[u"bitrate"] == u"500000":
+                SD = item[u"source"]
+            if item[u"bitrate"] == u"1500000":
+                HD = item[u"source"]
+        if quality == "SD":
+            return SD
+        if quality == "HD":
+            return HD
+    except:
+        return ""
 
 def check(name, url):
 	OK = "[COLOR green]"+name+"[/COLOR]"
