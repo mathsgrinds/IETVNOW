@@ -46,11 +46,16 @@ def AerTV(station):
         website = urllib2.urlopen(url)
         html = website.read()               
         j = json.loads(html)
+        SD = ""
+        HD = ""
         for item in j[u"data"][u"urls"][u"stream"][u"rtmp"]:
-            if item[u"bitrate"] == u"500000":
+            print int(item[u"bitrate"])
+            if int(item[u"bitrate"]) >= 500000 and int(item[u"bitrate"]) < 1500000:
                 SD = item[u"source"]
-            if item[u"bitrate"] == u"1500000":
+            if int(item[u"bitrate"]) >= 1500000:
                 HD = item[u"source"]
+            if HD == "":
+                HD = SD
         if quality == "SD":
             return SD
         if quality == "HD":
