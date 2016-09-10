@@ -131,7 +131,7 @@ def guide(station):
     return(str(show))
         
 def check(name, url):
-    GEOBLOCKED = "[COLOR red]"+name+" | Blocked (IE or US only) [/COLOR]"
+    GEOBLOCKED = "[COLOR red]"+name+" | Blocked (IE only) [/COLOR]"
     try:
         if ("magnet.ie" in url and not Ireland) or url=="":
             return GEOBLOCKED
