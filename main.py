@@ -88,7 +88,7 @@ def check(name, url):
 		else:
 			return OK
 	except:
-		return MAYBE
+		return name
 
 def utv():
 	url = "http://player.utv.ie/live/"
@@ -101,21 +101,21 @@ def utv():
 		   url = url.replace("&","%26")
 		   return(url)
 	
-__url__ = sys.argv[0]
-__handle__ = int(sys.argv[1])
-path = sys.path[0]+"/"
-
 def tv3():
-	if tv3_stream == "AERTV.ie":
+	if tv3_stream == "AERTV":
 		return(AerTV("tv3"))
 	else:
 		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8')
 		
 def three_e():
-	if tv3_stream == "AERTV.ie":
+	if tv3_stream == "AERTV":
 		return(AerTV("3e"))
 	else:
 		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
+	
+__url__ = sys.argv[0]
+__handle__ = int(sys.argv[1])
+path = sys.path[0]+"/"
 
 def streams():
     return [
