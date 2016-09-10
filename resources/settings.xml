@@ -3,5 +3,7 @@
     <category label="32001">
 		<setting id="tv3" label="3e and TV3 Source:" type="select" default="TV3.ie" values="3e/TV3 Website|AERTV.ie" />
 		<setting id="quality" label="Stream Quality:" type="select" default="HD" values="SD|HD" />
+		<setting id="username" label="AERTV Username:" type="text" default="" />
+		<setting id="password" label="AERTV Password:" type="text" option="hidden" default="" />
     </category>
 </settings>
