@@ -28,14 +28,17 @@ username = str(addon.getSetting('username'))
 password = str(addon.getSetting('password'))
 
 def country():
-	try:
-		page = urlopen('http://whatismycountry.com/').read()
-		if "Ireland" in page:
-			return True
-		else:
-			return False
-	except:
-		return False
+    try:
+        url = 'http://whatismycountry.com/'
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+        req = urllib2.Request(url,headers=hdr)
+        page = urllib2.urlopen(req).read()
+        if "Ireland" in page:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 def token():
     try:
@@ -59,8 +62,9 @@ def token():
 def AerTV(station):
     try:
         url = "https://api.aertv.ie/v2/players/"+station+"?user_token="+token()
-        website = urllib2.urlopen(url)
-        html = website.read()               
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()             
         j = json.loads(html)
         SD = ""
         HD = ""
@@ -123,43 +127,54 @@ def guide(station):
         show='Parliamentary Television'
     elif station=="Irish TV":
         show='Local Stories'
-    else:
-        show=''
+
     return(str(show))
-		
+        
 def check(name, url):
-	GEOBLOCKED = "[COLOR red]"+name+" | Blocked [/COLOR]"
-	try:
-		if ("magnet.ie" in url and not Ireland) or url=="":
-			return GEOBLOCKED
-		else:
-			return name+" | "+guide(name)
-	except:
-		return name
+    GEOBLOCKED = "[COLOR red]"+name+" | Blocked (IE or US only) [/COLOR]"
+    try:
+        if ("magnet.ie" in url and not Ireland) or url=="":
+            return GEOBLOCKED
+        else:
+            return name+" | "+guide(name)
+    except:
+        return name+" | Close"
 
 def utv():
-	url = "http://player.utv.ie/live/"
-	website = urllib2.urlopen(url)
-	html = website.read()
-	links = re.findall('"((http|ftp)s?://.*?)"', html)
-	for link in links:
-	   if "m3u8" in link[0]:
-		   url=link[0]
-		   url = url.replace("&","%26")
-		   return(url)
-	
+    url = "http://player.utv.ie/live/"
+    hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+    req = urllib2.Request(url,headers=hdr)
+    html = urllib2.urlopen(req).read()
+    links = re.findall('"((http|ftp)s?://.*?)"', html)
+    for link in links:
+       if "m3u8" in link[0]:
+           url=link[0]
+           url = url.replace("&","%26")
+           return(url)
+    
 def tv3():
-	if tv3_stream == "AERTV":
-		return(AerTV("tv3"))
-	else:
-		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8')
-		
+    if tv3_stream == "AERTV":
+        return(AerTV("tv3"))
+    else:
+        return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8')
+        
 def three_e():
-	if tv3_stream == "AERTV":
-		return(AerTV("3e"))
-	else:
-		return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
-	
+    if tv3_stream == "AERTV":
+        return(AerTV("3e"))
+    else:
+        return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
+
+def tg4():
+    try:
+        url = "http://www.tg4.ie/en/live/home/"
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        link = re.findall('http\:\/\/.*\.m3u8', html)[0]
+        return link
+    except:
+        return ""
+        
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
@@ -172,7 +187,7 @@ def streams():
 {'name': check('RTE News Now', 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': 'http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8'},
 {'name': check('3e', three_e()), 'thumb': path+'resources/logos/3e.png', 'link': three_e()},
 {'name': check('TV3', tv3()), 'thumb': path+'resources/logos/TV3.png', 'link': tv3()},
-{'name': check('TG4', 'http://csm-e.cds1.yospace.com/csm/live/74246540.m3u8'), 'thumb': path+'resources/logos/TG4.png', 'link': 'http://csm-e.cds1.yospace.com/csm/live/74246540.m3u8'},
+{'name': check('TG4', tg4()), 'thumb': path+'resources/logos/TG4.png', 'link': tg4()},
 {'name': check('Irish TV', 'http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8'), 'thumb': path+'resources/logos/IrishTV.png', 'link': 'http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8'},
 {'name': check('UTV', utv()), 'thumb': path+'resources/logos/UTV.png', 'link': utv()},
 {'name': check('Oireachtas TV', 'https://media.heanet.ie/transcode05/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8?DVR'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': 'https://media.heanet.ie/transcode05/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8?DVR'}
@@ -205,6 +220,6 @@ def router(paramstring):
 
 #Check if we are in Ireland
 Ireland = country()
-		
+
 if __name__ == '__main__':
     router(sys.argv[2])
