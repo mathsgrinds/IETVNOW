@@ -79,14 +79,61 @@ def AerTV(station):
     except:
         return ""
 
+def guide(station):
+    hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+    if station=="RTÉ One":
+        url='http://entertainment.ie/tv/display.asp?channelid=81'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="RTE Two":
+        url='http://entertainment.ie/tv/display.asp?channelid=82'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="TV3":
+        url='http://entertainment.ie/tv/display.asp?channelid=84'
+        html = urlopen(url).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="TG4":
+        url='http://entertainment.ie/tv/display.asp?channelid=83'
+        html = urlopen(url).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="3e":
+        url='http://entertainment.ie/tv/display.asp?channelid=1209'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="UTV":
+        url='http://entertainment.ie/tv/display.asp?channelid=39'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="RTE Jr":
+        url='http://entertainment.ie/tv/display.asp?channelid=1649'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','')
+    elif station=="RTE News Now":
+        url='http://www.rte.ie/player/99/live/7/'
+        req = urllib2.Request(url,headers=hdr)
+        html = urllib2.urlopen(req).read()
+        show = re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','')
+    elif station=="Oireachtas TV":
+        show='Parliamentary Television'
+    elif station=="Irish TV":
+        show='Local Stories'
+    else:
+        show=''
+    return(str(show))
+		
 def check(name, url):
-	OK = "[COLOR green]"+name+"[/COLOR]"
-	GEO = "[COLOR red]"+name+" | Blocked [/COLOR]"
+	GEOBLOCKED = "[COLOR red]"+name+" | Blocked [/COLOR]"
 	try:
 		if ("magnet.ie" in url and not Ireland) or url=="":
-			return GEO
+			return GEOBLOCKED
 		else:
-			return OK
+			return name+" | "+guide(name)
 	except:
 		return name
 
