@@ -28,12 +28,14 @@ username = str(addon.getSetting('username'))
 password = str(addon.getSetting('password'))
 
 def country():
-    my_ip = urlopen('http://ip.42.pl/raw').read()
-    page = urlopen('http://www.ip-tracker.org/locator/ip-lookup.php?ip='+my_ip).read()
-    if "Country:</th><td> Ireland" in page:
-        return True
-    else:
-        return False
+	try:
+		page = urlopen('http://whatismycountry.com/').read()
+		if "Ireland" in page:
+			return True
+		else:
+			return False
+	except:
+		return False
 
 def token():
     try:
