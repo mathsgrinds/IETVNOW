@@ -143,7 +143,7 @@ def check(name, url):
         else:
             return name+" -- "+guide(name)
     except:
-        return name+" | Close"
+        return name+" -- Close"
 
 def utv():
     url = "http://player.utv.ie/live/"
