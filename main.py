@@ -34,11 +34,11 @@ def country():
         req = urllib2.Request(url,headers=hdr)
         page = urllib2.urlopen(req).read()
         if "Ireland" in page:
-            return True
+            return str(page).lower()
         else:
-            return False
+            return ""
     except:
-        return False
+        return ""
 
 def token():
     try:
@@ -128,15 +128,20 @@ def guide(station):
     elif station=="Irish TV":
         show='Local Stories'
 
-    return(str(show))
+    return(str(show.replace("&","and")))
         
 def check(name, url):
-    GEOBLOCKED = "[COLOR red]"+name+" | Blocked (IE only) [/COLOR]"
     try:
-        if ((name=="RTÉ One" or name=="RTE Two" or name=="RTE Jr" or name=="TG4" or name=="Oireachtas TV") and not Ireland) or url=="":
-            return GEOBLOCKED
+        if url=="":
+            return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
+        elif (name=="RTÉ One" or name=="RTE Two" or name=="RTE Jr" or name=="TG4" or name=="Oireachtas TV") and not Ireland:
+            return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
+        elif name=="TG4" and (UK or Ireland):
+            return name+" -- "+guide(name)
+        elif name=="TG4" and not (UK or Ireland):
+            "[COLOR red]"+name+" -- Blocked (IE or UK only) [/COLOR]"
         else:
-            return name+" | "+guide(name)
+            return name+" -- "+guide(name)
     except:
         return name+" | Close"
 
@@ -219,7 +224,13 @@ def router(paramstring):
         list_videos()
 
 #Check if we are in Ireland
-Ireland = country()
+country = country()
+Ireland = False
+UK = False
+if "ireland" in country:
+    Ireland = True
+elif "united kingdom" in country:
+    UK = True
 
 if __name__ == '__main__':
     router(sys.argv[2])
