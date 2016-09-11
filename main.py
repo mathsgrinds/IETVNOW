@@ -24,7 +24,7 @@ from urllib2 import urlopen
 addon = xbmcaddon.Addon()
 quality = str(addon.getSetting('quality'))
 tv3_stream = str(addon.getSetting('tv3'))
-guide = bool(addon.getSetting('guide'))
+showguide = str(addon.getSetting('showguide'))
 username = str(addon.getSetting('username'))
 password = str(addon.getSetting('password'))
 
@@ -94,7 +94,7 @@ def AerTV(station):
         return ""
 
 def guide(station):
-    if guide == True:
+    if showguide == "true":
         hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
         if station=="RTÉ One":
             url='http://entertainment.ie/tv/display.asp?channelid=81'
@@ -139,7 +139,7 @@ def guide(station):
         elif station=="Irish TV":
             show='Local Stories'
         return(" -- "+str(show.replace("&","and")))
-    elif guide == False:
+    else:
         return ""
         
 def check(name, url):
