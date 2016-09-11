@@ -129,7 +129,7 @@ def guide(station):
         
 def check(name, url):
     try:
-        if url=="" or "magnet.ie" in url:
+        if url=="" or ("magnet.ie" in url and not Ireland):
             return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
         elif name=="TG4" and not Ireland:
             return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
