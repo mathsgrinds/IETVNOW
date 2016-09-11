@@ -128,8 +128,10 @@ def guide(channel):
 		#Parse the show for the Entertainment.ie links;
 		req = urllib2.Request(url, None, useragent)
 		html = urllib2.urlopen(req).read()
-		return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&", "and")
-	
+		try:
+			return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&", "and")
+		except:
+			return " - Close "
 	else:
 		return ""
 		
