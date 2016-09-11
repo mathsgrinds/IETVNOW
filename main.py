@@ -33,10 +33,7 @@ def country():
         hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
         req = urllib2.Request(url,headers=hdr)
         page = urllib2.urlopen(req).read()
-        if "Ireland" in page:
-            return str(page).lower()
-        else:
-            return ""
+        return str(page)
     except:
         return ""
 
@@ -132,14 +129,14 @@ def guide(station):
         
 def check(name, url):
     try:
-        if url=="":
+        if url=="" or "magnet.ie" in url:
             return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
-        elif (name=="RTÉ One" or name=="RTE Two" or name=="RTE Jr" or name=="TG4" or name=="Oireachtas TV") and not Ireland:
+        elif name=="TG4" and not Ireland:
             return "[COLOR red]"+name+" -- Blocked (IE only) [/COLOR]"
-        elif name=="TG4" and (UK or Ireland):
+        elif name=="Oireachtas TV" and (UK or Ireland):
             return name+" -- "+guide(name)
-        elif name=="TG4" and not (UK or Ireland):
-            "[COLOR red]"+name+" -- Blocked (IE or UK only) [/COLOR]"
+        elif name=="Oireachtas TV" and not UK and not Ireland:
+            return "[COLOR red]"+name+" -- Blocked (IE or UK only) [/COLOR]"
         else:
             return name+" -- "+guide(name)
     except:
@@ -227,9 +224,9 @@ def router(paramstring):
 country = country()
 Ireland = False
 UK = False
-if "ireland" in country:
+if "Ireland" in country:
     Ireland = True
-elif "united kingdom" in country:
+if "United Kingdom" in country:
     UK = True
 
 if __name__ == '__main__':
