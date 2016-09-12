@@ -131,7 +131,7 @@ def guide(channel):
 		try:
 			return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace("&","and")
 		except:
-			return " - Close "
+			return " - Close"
 	else:
 		return ""
 		
