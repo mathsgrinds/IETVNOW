@@ -101,7 +101,7 @@ def guide(channel):
 		if channel=="RTE News Now":
 			req = urllib2.Request('http://www.rte.ie/player/99/live/7/', None, useragent)
 			html = urllib2.urlopen(req).read()
-			return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','')
+			return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','').replace("&amp;", "and").replace("&","and")
 		elif channel=="Irish TV":
 			return " - Local Stories" #also breaks out of def;
 		elif channel=="Oireachtas TV":
@@ -129,7 +129,7 @@ def guide(channel):
 		req = urllib2.Request(url, None, useragent)
 		html = urllib2.urlopen(req).read()
 		try:
-			return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("amp;", "and")
+			return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace("&","and")
 		except:
 			return " - Close "
 	else:
