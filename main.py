@@ -106,12 +106,12 @@ def guide(channel):
 			return " - Local Stories" #also breaks out of def;
 		elif channel=="Oireachtas TV":
 			return " - Parliamentary Television" #also breaks out of def;
+		elif channel=="RTE One +1":
+			return " - RTE One 1 hour ago"
 		
 		#Parse the urls for the Entertainment.ie channels;
 		elif channel=="RTE One":
 			url='http://entertainment.ie/tv/display.asp?channelid=81'
-		elif channel=="RTE One +1":
-			return ""
 		elif channel=="RTE Two":
 			url='http://entertainment.ie/tv/display.asp?channelid=82'
 		elif channel=="RTEjr":
