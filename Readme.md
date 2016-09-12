@@ -1,10 +1,10 @@
 Irish Version of USTVNOW
 ===
-Author: MathsGrinds
+Author: MathsGrinds, ImReallyShiny
 License: [GPL v.3](http://www.gnu.org/copyleft/gpl.html)
 
-- When possible the station's m3u8 stream is used
-- If such a stream does not exist then AerTV is used
+- When possible the offical station's m3u8 stream is used
+- However, if such a stream does not exist then AerTV is used
+- Users may switch to AerTV for some station
 - No account is necessary but you may use your AerTv account
-- AerTV is only available in Ireland (geo-blocked otherwise)
 - Enjoy IETVNOW :)
