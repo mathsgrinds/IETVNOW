@@ -156,43 +156,50 @@ def parse(channel):
 #---------------------------------------------------------------------------------
 # Channel Parsers
 
+def scrape_m3u8(url):
+    try:
+        req = urllib2.Request(url, None, useragent)
+        html = urllib2.urlopen(req).read()
+        try:
+            link = re.findall('\"https?\:\/\/.*\.m3u8.*?\"', html)[0].strip('"')
+        except:
+            link = re.findall('https?\:\/\/.*\.m3u8.*?', html)[0].strip('"')
+        return str(link).replace("&","%26")
+    except:
+        return ""
+
 def RTENewsNow():
-	if PreferredStream == "AerTV.ie":
-		return AerTV("rte-news-now")
-	else:
-		return "http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8"
-	
-def UTV():
-	try:
-		req = urllib2.Request("http://player.utv.ie/live/", None, useragent)
-		html = urllib2.urlopen(req).read()
-		links = re.findall('"((http|ftp)s?://.*?)"', html)
-		for link in links:
-		   if "m3u8" in link[0]:
-			   return(link[0].replace("&","%26"))
-	except:
-		return ""
-	
+    if PreferredStream == "AerTV.ie":
+        return AerTV("rte-news-now")
+    else:
+        return "http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8"
+     
 def TG4():
-	if PreferredStream == "AerTV.ie":
-		AerTV("tg4")
-	else:
-		req = urllib2.Request("http://www.tg4.ie/en/live/home/", None, useragent)
-		html = urllib2.urlopen(req).read()
-		link = re.findall('http\:\/\/.*\.m3u8', html)[0]
-		return str(link)
-		
+    if PreferredStream == "AerTV.ie":
+        AerTV("tg4")
+    else:
+        return scrape_m3u8("http://www.tg4.ie/en/live/home/")
+
 def TV3():
-	if PreferredStream == "AerTV.ie":
-		return AerTV("tv3")
-	else:
-		return "http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,tv3-prd.m3u8"
-		
+    if PreferredStream == "AerTV.ie":
+        return AerTV("tv3")
+    else:
+        return scrape_m3u8("http://www.tv3.ie/3player/live/tv3/")
+
 def ThreeE():
-	if PreferredStream == "AerTV.ie":
-		return AerTV("3e")
-	else:
-		return "http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8"
+    if PreferredStream == "AerTV.ie":
+        return AerTV("3e")
+    else:
+        return scrape_m3u8("http://www.tv3.ie/3player/live/3e/")
+    
+def IrishTV():
+    return scrape_m3u8("http://www.irishtv.ie/playertest.html")
+
+def OireachtasTV():
+    return scrape_m3u8("https://media.heanet.ie/player/oirtv.php")
+
+def UTV():
+    return scrape_m3u8("http://player.utv.ie/live/")
 
 # --------------------------------------------------------------------------------
 
@@ -207,8 +214,8 @@ def streams():
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
 {'name': parse('TG4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
-{'name': parse('Irish TV'), 'thumb': path+'resources/logos/IrishTV.png', 'link': 'http://cdn.fs-chf01-04-aa1a041f-8251-d66e-5678-d03fd8530fad.arqiva-ott-live.com/live-audio_track=96000-video=1900000.m3u8'},
-{'name': parse('Oireachtas TV'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': 'https://media.heanet.ie/transcode05/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8?DVR'}
+{'name': parse('Irish TV'), 'thumb': path+'resources/logos/IrishTV.png', 'link': IrishTV()},
+{'name': parse('Oireachtas TV'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': OireachtasTV()}
 ]
 
 def router(paramstring):
