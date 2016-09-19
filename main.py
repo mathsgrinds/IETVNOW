@@ -225,24 +225,24 @@ def streams():
 ]
 
 def router(paramstring):
-	params = dict(parse_qsl(paramstring[1:]))
-	if params:
-		if params['mode'] == 'play':
-			play_item = xbmcgui.ListItem(path=params['link'])
-			xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-		if params['mode'] == '0':
-			for stream in streams():
-				if stream['name'] == channel:
-					play_item = xbmcgui.ListItem(path=str(stream['link']))
-					xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-	else:
-		for stream in streams():
-			list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
-			list_item.setProperty('fanart_image', stream['thumb'])
-			list_item.setProperty('IsPlayable', 'true')
-			url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
-			xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-		xbmcplugin.endOfDirectory(__handle__)
+    params = dict(parse_qsl(paramstring[1:]))
+    if params:
+        if params['mode'] == 'play':
+            play_item = xbmcgui.ListItem(path=params['link'])
+            xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
+        if params['mode'] == '0':
+            for stream in streams():
+                if params['channel'] in stream['thumb']:
+                    play_item = xbmcgui.ListItem(path=str(stream['link']))
+                    xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
+    else:
+        for stream in streams():
+            list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
+            list_item.setProperty('fanart_image', stream['thumb'])
+            list_item.setProperty('IsPlayable', 'true')
+            url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
+            xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
+        xbmcplugin.endOfDirectory(__handle__)
 
 if __name__ == '__main__':
 	router(sys.argv[2])
