@@ -156,17 +156,23 @@ def parse(channel):
 #---------------------------------------------------------------------------------
 # Channel Parsers
 
-def scrape_m3u8(url):
-    try:
-        req = urllib2.Request(url, None, useragent)
+def scrape_m3u8(x, index=0, x_is_url = True):
+    if x_is_url:
+        req = urllib2.Request(x, None, useragent)
         html = urllib2.urlopen(req).read()
-        try:
-            link = re.findall('\"https?\:\/\/.*\.m3u8.*?\"', html)[0].strip('"')
-        except:
-            link = re.findall('https?\:\/\/.*\.m3u8.*?', html)[0].strip('"')
-        return str(link).replace("&","%26")
+    else:
+        html = x
+    try:
+        link = re.findall('\"https?\:\/\/.*\.m3u8.*?\"', html)[index]
     except:
-        return ""
+        try:
+            link = re.findall('\'https?\:\/\/.*\.m3u8.*?\'', html)[index]
+        except:
+            try:
+                link = re.findall('https?\:\/\/.*\.m3u8.* ?', html)[index]
+            except:
+                link = ""
+    return str(link).replace("&","%26").replace('"','').replace("'",'').replace(' ','')
 
 def RTENewsNow():
     if PreferredStream == "AerTV.ie":

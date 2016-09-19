@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="32001">
-		<setting id="preferredstream" label="Preferred Stream Source:" type="select" default="Official Site" values="Official Site|AerTV.ie" />
-		<setting id="quality" label="Stream Quality:" type="select" default="SD" values="SD|HD" />
+		<setting id="preferredstream" label="Preferred Stream Source:" type="select" default="AerTV.ie" values="Official Site|AerTV.ie" />
+		<setting id="quality" label="Stream Quality:" type="select" default="HD" values="SD|HD" />
 		<setting id="showguide" label="Guide" type="bool" default="true"/>
 		<setting type="sep"/>
 		<setting label="AerTV (Premium) Login Details:" type="lsep"/>

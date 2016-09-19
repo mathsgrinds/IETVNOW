@@ -1,4 +1,4 @@
-<addon id="plugin.video.ietvnow" version="1.0.1" name="IETVNOW" provider-name="MathsGrinds, ImReallyShiny">
+<addon id="plugin.video.ietvnow" version="1.0.3" name="IETVNOW" provider-name="MathsGrinds, ImReallyShiny">
     <requires>
       <import addon="xbmc.python" version="2.7.3"/>
       <import addon="script.module.requests" version="2.7.0"/>
