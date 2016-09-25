@@ -26,7 +26,7 @@ quality = str(addon.getSetting('quality'))
 PreferredStream = str(addon.getSetting('preferredstream'))
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
-useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0'}
+useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'}
 
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
