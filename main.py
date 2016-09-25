@@ -95,7 +95,7 @@ def AerTV(channel):
 def guide(channel):
 	
 	#If the Guide is Enabled;
-	if bool(addon.getSetting('showguide')):
+	if str(addon.getSetting('showguide')) == "true":
 		
 		#Parse the show directly for certain channels;
 		if channel=="RTE News Now":
@@ -118,7 +118,7 @@ def guide(channel):
 			url='http://entertainment.ie/tv/display.asp?channelid=1649'
 		elif channel=="TV3":
 			url='http://entertainment.ie/tv/display.asp?channelid=84'
-		elif channel=="TG4":
+		elif channel=="tg4":
 			url='http://entertainment.ie/tv/display.asp?channelid=83'
 		elif channel=="3e":
 			url='http://entertainment.ie/tv/display.asp?channelid=1209'
@@ -219,12 +219,13 @@ def streams():
 {'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
-{'name': parse('TG4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
+{'name': parse('tg4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
 {'name': parse('Irish TV'), 'thumb': path+'resources/logos/IrishTV.png', 'link': IrishTV()},
 {'name': parse('Oireachtas TV'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': OireachtasTV()}
 ]
 
 def router(paramstring):
+    xbmc.executebuiltin('Container.Refresh')
     params = dict(parse_qsl(paramstring[1:]))
     if params:
         if params['mode'] == 'play':
