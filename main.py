@@ -243,7 +243,7 @@ def router(paramstring):
             list_item.setProperty('IsPlayable', 'true')
             url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
             xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-        xbmcplugin.endOfDirectory(__handle__)
+        xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
 
 if __name__ == '__main__':
 	router(sys.argv[2])
