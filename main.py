@@ -20,15 +20,22 @@ from time import gmtime, strftime
 import json
 from urllib2 import urlopen
 
+def str2bool(v):
+   return v.lower() in ("yes", "true", "t", "1")
+
 #Settings
 addon = xbmcaddon.Addon()
 quality = str(addon.getSetting('quality'))
+ShowGuide = str2bool(addon.getSetting('showguide'))
 RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
+UpdateListing = str2bool(addon.getSetting('updateListing'))
+CacheToDisc = str2bool(addon.getSetting('cacheToDisc'))
+
 useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'}
 
 __url__ = sys.argv[0]
@@ -102,7 +109,7 @@ def AerTV(channel):
 def guide(channel):
     
     #If the Guide is Enabled;
-    if str(addon.getSetting('showguide')) == "true":
+    if ShowGuide:
         
         #Parse the show directly for certain channels;
         if channel=="RTE News Now":
@@ -256,7 +263,7 @@ def router(paramstring):
             list_item.setProperty('IsPlayable', 'true')
             url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
             xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-        xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
+        xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=UpdateListing, cacheToDisc=CacheToDisc)
 
 if __name__ == '__main__':
     router(sys.argv[2])
