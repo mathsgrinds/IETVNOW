@@ -33,8 +33,7 @@ TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
-UpdateListing = str2bool(addon.getSetting('updateListing'))
-CacheToDisc = str2bool(addon.getSetting('cacheToDisc'))
+Update = str2bool(addon.getSetting('update'))
 
 useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'}
 
@@ -263,7 +262,10 @@ def router(paramstring):
             list_item.setProperty('IsPlayable', 'true')
             url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
             xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-        xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=UpdateListing, cacheToDisc=CacheToDisc)
+        if Update:
+            xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
+        else:
+            xbmcplugin.endOfDirectory(__handle__)
 
 if __name__ == '__main__':
     router(sys.argv[2])

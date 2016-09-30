@@ -7,8 +7,7 @@
 		<setting id="ThreeEpreferredstream" label="3e Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
 		<setting type="sep"/>
 		<setting id="showguide" label="Show Guide:" type="bool" default="true"/>
-		<setting id="updateListing" label="Update Listing:" type="bool" default="true"/>
-		<setting id="cacheToDisc" label="Cache To Disc:" type="bool" default="false"/>
+		<setting id="update" label="Update Token Automatically:" type="bool" default="false"/>
 		<setting id="quality" label="AerTV Stream Quality:" type="select" default="HD" values="SD|HD" />
 		<setting type="sep"/>
 		<setting label="AerTV (Premium) Login Details:" type="lsep"/>
