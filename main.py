@@ -26,24 +26,19 @@ def str2bool(v):
 #Settings
 addon = xbmcaddon.Addon()
 quality = str(addon.getSetting('quality'))
-ShowGuide = str2bool(addon.getSetting('showguide'))
+SafeMode = str2bool(addon.getSetting('safe'))
 RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
-Update = str2bool(addon.getSetting('update'))
 
 useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'}
 
 __url__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
-
-def strip_accents(s):
-   return ''.join(c for c in unicodedata.normalize('NFD', s)
-                  if unicodedata.category(c) != 'Mn')
 
 def login():
     try:
@@ -108,13 +103,13 @@ def AerTV(channel):
 def guide(channel):
     
     #If the Guide is Enabled;
-    if ShowGuide:
+    if not SafeMode:
         
         #Parse the show directly for certain channels;
         if channel=="RTE News Now":
             req = urllib2.Request('http://www.rte.ie/player/99/live/7/', None, useragent)
             html = urllib2.urlopen(req).read()
-            return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Eacute;', 'E').replace('&#39;', ' ')
+            return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u').replace('&#39;', ' ')
         elif channel=="Irish TV":
             return " - Local Stories" #also breaks out of def;
         elif channel=="Oireachtas TV":
@@ -142,7 +137,7 @@ def guide(channel):
         req = urllib2.Request(url, None, useragent)
         html = urllib2.urlopen(req).read()
         try:
-            return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Eacute;', 'E')
+            return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u')
         except:
             return " - Close"
     else:
@@ -216,7 +211,7 @@ def RTENewsNow():
         return AerTV("rte-news-now")
     elif RTENewsNowPreferredStream == "Perma Link":
         return "http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8"
-		
+        
 def IrishTV():
     return scrape_m3u8("http://www.irishtv.ie/playertest.html")
 
@@ -244,28 +239,39 @@ def streams():
 ]
 
 def router(paramstring):
-    xbmc.executebuiltin('Container.Refresh')
-    params = dict(parse_qsl(paramstring[1:]))
-    if params:
-        if params['mode'] == 'play':
-            play_item = xbmcgui.ListItem(path=params['link'])
-            xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-        if params['mode'] == '0':
-            for stream in streams():
-                if params['channel'] in stream['thumb']:
-                    play_item = xbmcgui.ListItem(path=str(stream['link']))
-                    xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-    else:
-        for stream in streams():
-            list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
-            list_item.setProperty('fanart_image', stream['thumb'])
-            list_item.setProperty('IsPlayable', 'true')
-            url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
-            xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-        if Update:
-            xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
+    if SafeMode:
+        params = dict(parse_qsl(paramstring[1:]))
+        if params:
+            if params['mode'] == 'play':
+                play_item = xbmcgui.ListItem(path=params['link'])
+                xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
         else:
+            for stream in streams():
+                list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
+                list_item.setProperty('fanart_image', stream['thumb'])
+                list_item.setProperty('IsPlayable', 'true')
+                url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
+                xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
             xbmcplugin.endOfDirectory(__handle__)
+    else:
+        params = dict(parse_qsl(paramstring[1:]))
+        if params:
+            if params['mode'] == 'play':
+                play_item = xbmcgui.ListItem(path=params['link'])
+                xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
+            if params['mode'] == '0':
+                for stream in streams():
+                    if params['channel'] in stream['thumb']:
+                        play_item = xbmcgui.ListItem(path=str(stream['link']))
+                        xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
+        else:
+            for stream in streams():
+                list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
+                list_item.setProperty('fanart_image', stream['thumb'])
+                list_item.setProperty('IsPlayable', 'true')
+                url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
+                xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
+            xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
 
 if __name__ == '__main__':
     router(sys.argv[2])
