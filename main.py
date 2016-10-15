@@ -230,7 +230,7 @@ def streams():
 {'name': parse('RTE Two'), 'thumb': path+'resources/logos/RTE2.png', 'link': AerTV("rte-two")},
 {'name': parse('RTEjr'), 'thumb': path+'resources/logos/RTEjr.png', 'link': AerTV("rtejr")},
 {'name': parse('RTE News Now'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': RTENewsNow()},
-{'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
+#{'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
 {'name': parse('tg4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
