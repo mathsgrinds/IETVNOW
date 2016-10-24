@@ -31,6 +31,7 @@ RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
+UTVPreferredStream = str(addon.getSetting('UTVpreferredstream'))
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
 
@@ -212,15 +213,20 @@ def RTENewsNow():
     elif RTENewsNowPreferredStream == "Perma Link":
         return "http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8"
         
+def UTV():
+	if UTVPreferredStream == "UTV.ie":
+		return scrape_m3u8("http://player.utv.ie/live/")
+	elif UTVPreferredStream == "ITV.com":
+		return scrape_m3u8("http://www.itv.com/utils/ios/ITV_Mobile_Simulcast_Config.xml")
+	elif UTVPreferredStream == "Perma Link":
+		return("https://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master.m3u8")
+
 def IrishTV():
     return scrape_m3u8("http://www.irishtv.ie/playertest.html")
 
 def OireachtasTV():
     return scrape_m3u8("https://media.heanet.ie/player/oirtv.php")
-
-def UTV():
-    return scrape_m3u8("http://player.utv.ie/live/")
-
+		
 # --------------------------------------------------------------------------------
 
 def streams():
@@ -230,7 +236,7 @@ def streams():
 {'name': parse('RTE Two'), 'thumb': path+'resources/logos/RTE2.png', 'link': AerTV("rte-two")},
 {'name': parse('RTEjr'), 'thumb': path+'resources/logos/RTEjr.png', 'link': AerTV("rtejr")},
 {'name': parse('RTE News Now'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': RTENewsNow()},
-#{'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
+{'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
 {'name': parse('tg4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
