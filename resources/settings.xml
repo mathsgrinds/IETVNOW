@@ -6,7 +6,7 @@
 		<setting id="TG4preferredstream" label="TG4 Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TG4.ie|Perma Link" />
 		<setting id="TV3preferredstream" label="TV3 Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
 		<setting id="ThreeEpreferredstream" label="3e Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
-		<setting id="UTVpreferredstream" label="UTV Preferred Stream Source:" type="select" default="ITV Perma Link" values="ITV Perma Link|UTV.ie" />
+		<setting id="UTVpreferredstream" label="UTV Preferred Stream Source:" type="select" default="Perma Link" values="Perma Link|ITV.com|UTV.ie" />
 		<setting id="quality" label="AerTV Stream Quality:" type="select" default="HD" values="SD|HD" />
 		<setting label="AerTV (Premium) Login Details:" type="lsep"/>
 		<setting id="email" label="Email:" type="text" default="" />
