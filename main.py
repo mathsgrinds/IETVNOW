@@ -51,7 +51,7 @@ def login():
         if not email and not password:
         
             #Use a Pre-Defined Free Account;
-            req = urllib2.Request('https://api.aertv.ie/v2/users/login', urllib.urlencode({'email':'walshmary'+t+'@gmail.com', 'password':'Password0'}), useragent)
+            req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':'walshmary'+t+'@gmail.com', 'password':'Password0'}), useragent)
             
         else:
         
