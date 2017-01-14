@@ -26,7 +26,7 @@ def str2bool(v):
 #Settings
 addon = xbmcaddon.Addon()
 quality = str(addon.getSetting('quality'))
-SafeMode = str2bool(addon.getSetting('safe'))
+Guide = str2bool(addon.getSetting('guide'))
 RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
@@ -104,7 +104,7 @@ def AerTV(channel):
 def guide(channel):
     
     #If the Guide is Enabled;
-    if not SafeMode:
+    if Guide:
         
         #Parse the show directly for certain channels;
         if channel=="RTE News Now":
@@ -192,7 +192,7 @@ def TG4():
 		elif TG4PreferredStream == "Perma Link":
 			return('http://tg4-lh.akamaihd.net/EirBeo1_1200_tg4@118693?videoId=2538842141001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&affiliateId;=&bandwidthEstimationTest=false&v=3.3.0&fp=WIN_13,0,0,2&r=MWDOQ&g=TPANMNTKXCBN')
 	except:
-		xbmc.executebuiltin('Notification(TG4, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(TG4, Could not fetch channel URL)')
 		
 def TV3():
 	try:
@@ -203,7 +203,7 @@ def TV3():
 		elif TV3PreferredStream == "Perma Link":
 			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
 	except:
-		xbmc.executebuiltin('Notification(TV3, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(TV3, Could not fetch channel URL)')
 
 def ThreeE():
 	try:
@@ -214,7 +214,7 @@ def ThreeE():
 		elif ThreeEPreferredStream == "Perma Link":
 			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
 	except:
-		xbmc.executebuiltin('Notification(3e, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(3e, Could not fetch channel URL)')
 
 def RTENewsNow():
 	try:
@@ -223,7 +223,7 @@ def RTENewsNow():
 		elif RTENewsNowPreferredStream == "Perma Link":
 			return("http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8")
 	except:
-		xbmc.executebuiltin('Notification(RTE News Now, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(RTE News Now, Could not fetch channel URL)')
         
 def UTV():
 	try:
@@ -234,19 +234,19 @@ def UTV():
 		elif UTVPreferredStream == "Perma Link":
 			return("https://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master.m3u8")
 	except:
-		xbmc.executebuiltin('Notification(UTV Error, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(UTV Error, Could not fetch channel URL)')
 
 def IrishTV():
 	try:
 		return scrape_m3u8("http://www.irishtv.ie/playertest.html")
 	except:
-		xbmc.executebuiltin('Notification(Irish TV Error, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(Irish TV Error, Could not fetch channel URL)')
 		
 def OireachtasTV():
 	try:
 		return scrape_m3u8("https://media.heanet.ie/player/oirtv.php")
 	except:
-		xbmc.executebuiltin('Notification(Oireachtas TV Error, Failed to scrape link)')
+		xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
 # --------------------------------------------------------------------------------
 
 def streams():
@@ -265,39 +265,19 @@ def streams():
 ]
 
 def router(paramstring):
-    if SafeMode:
-        params = dict(parse_qsl(paramstring[1:]))
-        if params:
-            if params['mode'] == 'play':
-                play_item = xbmcgui.ListItem(path=params['link'])
-                xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-        else:
-            for stream in streams():
-                list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
-                list_item.setProperty('fanart_image', stream['thumb'])
-                list_item.setProperty('IsPlayable', 'true')
-                url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
-                xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-            xbmcplugin.endOfDirectory(__handle__)
+    params = dict(parse_qsl(paramstring[1:]))
+    if params:
+        if params['mode'] == 'play':
+            play_item = xbmcgui.ListItem(path=params['link'])
+            xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
     else:
-        params = dict(parse_qsl(paramstring[1:]))
-        if params:
-            if params['mode'] == 'play':
-                play_item = xbmcgui.ListItem(path=params['link'])
-                xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-            if params['mode'] == '0':
-                for stream in streams():
-                    if params['channel'] in stream['thumb']:
-                        play_item = xbmcgui.ListItem(path=str(stream['link']))
-                        xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
-        else:
-            for stream in streams():
-                list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
-                list_item.setProperty('fanart_image', stream['thumb'])
-                list_item.setProperty('IsPlayable', 'true')
-                url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
-                xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
-            xbmcplugin.endOfDirectory(int(sys.argv[1]), updateListing=True, cacheToDisc=False)
+        for stream in streams():
+            list_item = xbmcgui.ListItem(label=stream['name'], thumbnailImage=stream['thumb'])
+            list_item.setProperty('fanart_image', stream['thumb'])
+            list_item.setProperty('IsPlayable', 'true')
+            url = '{0}?mode=play&link={1}'.format(__url__, stream['link'])
+            xbmcplugin.addDirectoryItem(__handle__, url, list_item, isFolder=False)
+        xbmcplugin.endOfDirectory(__handle__)
 
 if __name__ == '__main__':
     router(sys.argv[2])
