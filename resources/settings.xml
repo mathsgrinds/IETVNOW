@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
     <category label="32001">
-		<setting id="safe" label="Safe Mode:" type="bool" default="false"/>
+		<setting id="safe" label="Show What's on Now:" type="bool" default="true"/>
 		<setting id="RTENewsNowpreferredstream" label="RTE News Now Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|Perma Link" />
 		<setting id="TG4preferredstream" label="TG4 Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TG4.ie|Perma Link" />
 		<setting id="TV3preferredstream" label="TV3 Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
