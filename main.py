@@ -134,8 +134,8 @@ def guide(channel):
             url='http://entertainment.ie/tv/display.asp?channelid=1209'
         elif channel=="UTV":
             url='http://entertainment.ie/tv/display.asp?channelid=39'
-		elif channel=="be3":
-			url='http://entertainment.ie/tv/display.asp?channelid=1929'
+        elif channel=="be3":
+            url='http://entertainment.ie/tv/display.asp?channelid=1929'
         
         #Parse the show for the Entertainment.ie links;
         req = urllib2.Request(url, None, useragent)
@@ -187,86 +187,86 @@ def scrape_m3u8(x, index=0, x_is_url = True):
     return str(link).replace("&","%26").replace('"','').replace("'",'').replace(' ','')
 
 def TG4():
-	try:
-		if TG4PreferredStream == "AerTV.ie":
-			return AerTV("tg4")
-		elif TG4PreferredStream == "TG4.ie":
-			return scrape_m3u8("http://www.tg4.ie/en/live/home/")
-		elif TG4PreferredStream == "Perma Link":
-			return('http://tg4-lh.akamaihd.net/EirBeo1_1200_tg4@118693?videoId=2538842141001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&affiliateId;=&bandwidthEstimationTest=false&v=3.3.0&fp=WIN_13,0,0,2&r=MWDOQ&g=TPANMNTKXCBN')
-	except:
-		xbmc.executebuiltin('Notification(TG4, Could not fetch channel URL)')
-		return("")
-		
+   try:
+      if TG4PreferredStream == "AerTV.ie":
+         return AerTV("tg4")
+      elif TG4PreferredStream == "TG4.ie":
+         return scrape_m3u8("http://www.tg4.ie/en/live/home/")
+      elif TG4PreferredStream == "Perma Link":
+         return('http://tg4-lh.akamaihd.net/EirBeo1_1200_tg4@118693?videoId=2538842141001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&affiliateId;=&bandwidthEstimationTest=false&v=3.3.0&fp=WIN_13,0,0,2&r=MWDOQ&g=TPANMNTKXCBN')
+   except:
+      xbmc.executebuiltin('Notification(TG4, Could not fetch channel URL)')
+      return("")
+      
 def TV3():
-	try:
-		if TV3PreferredStream == "AerTV.ie":
-			return AerTV("tv3")
-		elif TV3PreferredStream == "TV3.ie":
-			return scrape_m3u8("http://www.tv3.ie/3player/live/tv3/")
-		elif TV3PreferredStream == "Perma Link":
-			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
-	except:
-		xbmc.executebuiltin('Notification(TV3, Could not fetch channel URL)')
-		return("")
+   try:
+      if TV3PreferredStream == "AerTV.ie":
+         return AerTV("tv3")
+      elif TV3PreferredStream == "TV3.ie":
+         return scrape_m3u8("http://www.tv3.ie/3player/live/tv3/")
+      elif TV3PreferredStream == "Perma Link":
+         return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
+   except:
+      xbmc.executebuiltin('Notification(TV3, Could not fetch channel URL)')
+      return("")
 
 def be3():
-	try:
-		if be3PreferredStream == "TV3.ie":
-			return scrape_m3u8("http://www.tv3.ie/3player/live/be3/")
-		elif be3PreferredStream == "Perma Link":
-			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,be3-prd.m3u8')
-	except:
-		xbmc.executebuiltin('Notification(be3, Could not fetch channel be3)')
-		return("")		
+   try:
+      if be3PreferredStream == "TV3.ie":
+         return scrape_m3u8("http://www.tv3.ie/3player/live/be3/")
+      elif be3PreferredStream == "Perma Link":
+         return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,be3-prd.m3u8')
+   except:
+      xbmc.executebuiltin('Notification(be3, Could not fetch channel be3)')
+      return("")     
 
 def ThreeE():
-	try:
-		if ThreeEPreferredStream == "AerTV.ie":
-			return AerTV("3e")
-		elif ThreeEPreferredStream == "TV3.ie":
-			return scrape_m3u8("http://www.tv3.ie/3player/live/3e/")
-		elif ThreeEPreferredStream == "Perma Link":
-			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
-	except:
-		xbmc.executebuiltin('Notification(3e, Could not fetch channel URL)')
-		return("")
+   try:
+      if ThreeEPreferredStream == "AerTV.ie":
+         return AerTV("3e")
+      elif ThreeEPreferredStream == "TV3.ie":
+         return scrape_m3u8("http://www.tv3.ie/3player/live/3e/")
+      elif ThreeEPreferredStream == "Perma Link":
+         return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,3e-prd.m3u8')
+   except:
+      xbmc.executebuiltin('Notification(3e, Could not fetch channel URL)')
+      return("")
 
 def RTENewsNow():
-	try:
-		if RTENewsNowPreferredStream == "AerTV.ie":
-			return AerTV("rte-news-now")
-		elif RTENewsNowPreferredStream == "Perma Link":
-			return("http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8")
-	except:
-		xbmc.executebuiltin('Notification(RTE News Now, Could not fetch channel URL)')
-		return("")
+   try:
+      if RTENewsNowPreferredStream == "AerTV.ie":
+         return AerTV("rte-news-now")
+      elif RTENewsNowPreferredStream == "Perma Link":
+         return("http://wmsrtsp1.rte.ie/live/android.sdp/playlist.m3u8")
+   except:
+      xbmc.executebuiltin('Notification(RTE News Now, Could not fetch channel URL)')
+      return("")
         
 def UTV():
-	try:
-		if UTVPreferredStream == "UTV.ie":
-			return scrape_m3u8("http://player.utv.ie/live/")
-		elif UTVPreferredStream == "ITV.com":
-			return scrape_m3u8("http://www.itv.com/utils/ios/ITV_Mobile_Simulcast_Config.xml")
-		elif UTVPreferredStream == "Perma Link":
-			return("https://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master.m3u8")
-	except:
-		xbmc.executebuiltin('Notification(UTV Error, Could not fetch channel URL)')
-		return("")
+   try:
+      if UTVPreferredStream == "UTV.ie":
+         return scrape_m3u8("http://player.utv.ie/live/")
+      elif UTVPreferredStream == "ITV.com":
+         return scrape_m3u8("http://www.itv.com/utils/ios/ITV_Mobile_Simulcast_Config.xml")
+      elif UTVPreferredStream == "Perma Link":
+         return("https://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master.m3u8")
+   except:
+      xbmc.executebuiltin('Notification(UTV Error, Could not fetch channel URL)')
+      return("")
 
 def IrishTV():
-	try:
-		return scrape_m3u8("http://www.irishtv.ie/playertest.html")
-	except:
-		xbmc.executebuiltin('Notification(Irish TV Error, Could not fetch channel URL)')
-		return("")
-		
+   try:
+      return scrape_m3u8("http://www.irishtv.ie/playertest.html")
+   except:
+      xbmc.executebuiltin('Notification(Irish TV Error, Could not fetch channel URL)')
+      return("")
+      
 def OireachtasTV():
-	try:
-		return scrape_m3u8("https://media.heanet.ie/player/oirtv.php")
-	except:
-		xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
-		return("")
+   try:
+      return scrape_m3u8("https://media.heanet.ie/player/oirtv.php")
+   except:
+      xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
+      return("")
 # --------------------------------------------------------------------------------
 
 def streams():
