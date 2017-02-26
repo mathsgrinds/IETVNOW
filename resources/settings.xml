@@ -7,6 +7,7 @@
 		<setting id="TV3preferredstream" label="TV3 Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
 		<setting id="ThreeEpreferredstream" label="3e Preferred Stream Source:" type="select" default="AerTV.ie" values="AerTV.ie|TV3.ie|Perma Link" />
 		<setting id="UTVpreferredstream" label="UTV Preferred Stream Source:" type="select" default="Perma Link" values="Perma Link|ITV.com|UTV.ie" />
+		<setting id="be3preferredstream" label="be3 Preferred Stream Source:" type="select" default="TV3.ie" values="TV3.ie|Perma Link" />
 		<setting id="quality" label="AerTV Stream Quality:" type="select" default="HD" values="SD|HD" />
 		<setting label="AerTV (Premium) Login Details:" type="lsep"/>
 		<setting id="email" label="Email:" type="text" default="" />

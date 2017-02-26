@@ -30,6 +30,7 @@ Guide = str2bool(addon.getSetting('guide'))
 RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
+be3PreferredStream = str(addon.getSetting('be3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
 UTVPreferredStream = str(addon.getSetting('UTVpreferredstream'))
 email = str(addon.getSetting('email'))
@@ -133,6 +134,8 @@ def guide(channel):
             url='http://entertainment.ie/tv/display.asp?channelid=1209'
         elif channel=="UTV":
             url='http://entertainment.ie/tv/display.asp?channelid=39'
+		elif channel=="be3":
+			url='http://entertainment.ie/tv/display.asp?channelid=1929'
         
         #Parse the show for the Entertainment.ie links;
         req = urllib2.Request(url, None, useragent)
@@ -207,6 +210,16 @@ def TV3():
 		xbmc.executebuiltin('Notification(TV3, Could not fetch channel URL)')
 		return("")
 
+def be3():
+	try:
+		if be3PreferredStream == "TV3.ie":
+			return scrape_m3u8("http://www.tv3.ie/3player/live/be3/")
+		elif be3PreferredStream == "Perma Link":
+			return('http://csm-e.cds1.yospace.com/csm/extlive/tv3ie01,be3-prd.m3u8')
+	except:
+		xbmc.executebuiltin('Notification(be3, Could not fetch channel be3)')
+		return("")		
+
 def ThreeE():
 	try:
 		if ThreeEPreferredStream == "AerTV.ie":
@@ -265,6 +278,7 @@ def streams():
 {'name': parse('RTE News Now'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': RTENewsNow()},
 {'name': parse('UTV'), 'thumb': path+'resources/logos/UTV.png', 'link': UTV()},
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
+{'name': parse('be3'), 'thumb': path+'resources/logos/be3.png', 'link': be3()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
 {'name': parse('tg4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
 {'name': parse('Irish TV'), 'thumb': path+'resources/logos/IrishTV.png', 'link': IrishTV()},
