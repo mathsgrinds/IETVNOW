@@ -60,7 +60,9 @@ def login():
         for key, value in dic.iteritems():
             pre_defined_email = key
             pre_defined_password = value
-            if(c==((int(strftime("%H", gmtime()))*6 + 1+int(int(strftime("%M", gmtime()))/10))%len(dic))):
+            t = (int((60*int(strftime("%H",gmtime()))+int(strftime("%M",gmtime())))/10))%len(dic)
+            c = (c)%len(dic)
+            if(c==t):
                 break
             c += 1
 
@@ -119,50 +121,52 @@ def AerTV(channel):
         return HD
         
 def guide(channel):
-    
-    #If the Guide is Enabled;
-    if Guide:
-        
-        #Parse the show directly for certain channels;
-        if channel=="RTE News Now":
-            req = urllib2.Request('http://www.rte.ie/player/99/live/7/', None, useragent)
-            html = urllib2.urlopen(req).read()
-            return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u').replace('&#39;', ' ')
-        elif channel=="Irish TV":
-            return " - Local Stories" #also breaks out of def;
-        elif channel=="Oireachtas TV":
-            return " - Parliamentary Television" #also breaks out of def;
-        elif channel=="RTE One +1":
-            return " - RTE One 1 hour ago"
-        
-        #Parse the urls for the Entertainment.ie channels;
-        elif channel=="RTE One":
-            url='http://entertainment.ie/tv/display.asp?channelid=81'
-        elif channel=="RTE Two":
-            url='http://entertainment.ie/tv/display.asp?channelid=82'
-        elif channel=="RTEjr":
-            url='http://entertainment.ie/tv/display.asp?channelid=1649'
-        elif channel=="TV3":
-            url='http://entertainment.ie/tv/display.asp?channelid=84'
-        elif channel=="tg4":
-            url='http://entertainment.ie/tv/display.asp?channelid=83'
-        elif channel=="3e":
-            url='http://entertainment.ie/tv/display.asp?channelid=1209'
-        elif channel=="UTV":
-            url='http://entertainment.ie/tv/display.asp?channelid=39'
-        elif channel=="be3":
-            url='http://entertainment.ie/tv/display.asp?channelid=1929'
-        
-        #Parse the show for the Entertainment.ie links;
-        req = urllib2.Request(url, None, useragent)
-        html = urllib2.urlopen(req).read()
-        try:
-            return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u')
-        except:
-            return " - Close"
-    else:
-        return ""
-        
+   try:
+       #If the Guide is Enabled;
+       if Guide:
+           
+           #Parse the show directly for certain channels;
+           if channel=="RTE News Now":
+               req = urllib2.Request('http://www.rte.ie/player/99/live/7/', None, useragent)
+               html = urllib2.urlopen(req).read()
+               return " - " + re.findall('<h1 id=\"show-title\">.*</h1>', html)[0].replace('<h1 id="show-title">','').replace('</h1>','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u').replace('&#39;', ' ')
+           elif channel=="Irish TV":
+               return " - Local Stories" #also breaks out of def;
+           elif channel=="Oireachtas TV":
+               return " - Parliamentary Television" #also breaks out of def;
+           elif channel=="RTE One +1":
+               return " - RTE One 1 hour ago"
+           
+           #Parse the urls for the Entertainment.ie channels;
+           elif channel=="RTE One":
+               url='http://entertainment.ie/tv/display.asp?channelid=81'
+           elif channel=="RTE Two":
+               url='http://entertainment.ie/tv/display.asp?channelid=82'
+           elif channel=="RTEjr":
+               url='http://entertainment.ie/tv/display.asp?channelid=1649'
+           elif channel=="TV3":
+               url='http://entertainment.ie/tv/display.asp?channelid=84'
+           elif channel=="tg4":
+               url='http://entertainment.ie/tv/display.asp?channelid=83'
+           elif channel=="3e":
+               url='http://entertainment.ie/tv/display.asp?channelid=1209'
+           elif channel=="UTV":
+               url='http://entertainment.ie/tv/display.asp?channelid=39'
+           elif channel=="be3":
+               url='http://entertainment.ie/tv/display.asp?channelid=1929'
+           
+           #Parse the show for the Entertainment.ie links;
+           req = urllib2.Request(url, None, useragent)
+           html = urllib2.urlopen(req).read()
+           try:
+               return " - " + re.findall('title=\".*\" onclick', html)[0].replace('title="','').replace('" onclick','').replace('View ','').replace(' programme details','').replace("&amp;", "and").replace(" & "," and ").replace('and#39;', ' ').replace('&Aacute;', 'A').replace('&Eacute;', 'E').replace('&Iacute;', 'I').replace('&Oacute;', 'O').replace('&Uacute;', 'U').replace('&aacute;', 'a').replace('&eacute;', 'e').replace('&iacute;', 'i').replace('&oacute;', 'o').replace('&uacute;', 'u')
+           except:
+               return " - Close"
+       else:
+           return ""
+   except:
+      return ""
+
 def parse(channel):
 
     #Get the Country;
