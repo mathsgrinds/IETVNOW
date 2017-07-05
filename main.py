@@ -165,7 +165,7 @@ def guide(channel):
        else:
            return ""
    except:
-      return ""
+      return "No guide info"
 
 def parse(channel):
 
