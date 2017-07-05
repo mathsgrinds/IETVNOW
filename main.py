@@ -46,11 +46,17 @@ path = sys.path[0]+"/"
 def login():
     try:
         #Load a Pre-Defined Account;
-        with open(path+'resources/Data.csv', mode='r') as infile:
-            reader = csv.reader(infile)
-            dic = {rows[0]:rows[1] for rows in reader}
-        c=0
-		
+        try:
+           with open(path+'resources/Alt_Login.csv', mode='r') as infile:
+               reader = csv.reader(infile)
+               dic = {rows[0]:rows[1] for rows in reader}
+           c=0
+        except:
+           with open(path+'resources/Login.csv', mode='r') as infile:
+               reader = csv.reader(infile)
+               dic = {rows[0]:rows[1] for rows in reader}
+           c=0
+      
         for key, value in dic.iteritems():
             pre_defined_email = key
             pre_defined_password = value
@@ -58,17 +64,17 @@ def login():
                 break
             c += 1
 
-		#If there isn't both Email and Password set;
+      #If there isn't both Email and Password set;
         if not email and not password:
            
             #Use a Pre-Defined Free Account;
             req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':pre_defined_email, 'password':pre_defined_password}), useragent)
-            
+               
         else:
         
             #Use the Account defined in Settings by the User;
             req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':email, 'password':password}), useragent)
-            
+               
         #Output the JSON;
         html = urllib2.urlopen(req).read()
         return json.loads(html)
@@ -85,7 +91,7 @@ loginj = login()
 def AerTV(channel):
     
     #Get the JSON from the Players API;
-    req = urllib2.Request("https://api.aertv.ie/v2/players/"+channel+"?user_token="+loginj[u'data'][u'user_token'], None, useragent)
+    req = urllib2.Request("http://api.aertv.ie/v2/players/"+channel+"?user_token="+loginj[u'data'][u'user_token'], None, useragent)
     html = urllib2.urlopen(req).read()
     j = json.loads(html)
     SD = ""

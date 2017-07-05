@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.ietvnow" version="1.0.21" name="IETVNOW" provider-name="MathsGrinds, ImReallyShiny">
+<addon id="plugin.video.ietvnow" version="1.0.25" name="IETVNOW" provider-name="MathsGrinds, ImReallyShiny">
     <requires>
       <import addon="xbmc.python" version="2.7.3"/>
       <import addon="script.module.requests" version="2.7.0"/>
@@ -10,7 +10,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
       <summary lang="en">Plays live Irish TV from Official Sources.</summary>
-      <description lang="en">Plays live Irish TV (RTE1, RTE2, RTEjr, RTE News, TV3, 3e, TG4, UTV, Irish TV and Oireachtas TV)</description>
+      <description lang="en">Plays live Irish TV (RTE1, RTE2, RTEjr, RTE News, TV3, TG4, 3e and Be3)</description>
       <disclaimer lang="en">IETVNOW is not affiliated with any TV Stations shown. I have no ownership or responsiblity over said video streams.</disclaimer>
       <license>http://www.gnu.org/licenses/</license>
       <website>http://imreallyshiny.github.io/IETVNOW</website>
