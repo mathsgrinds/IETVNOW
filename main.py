@@ -46,17 +46,10 @@ path = sys.path[0]+"/"
 def login():
     try:
         #Load a Pre-Defined Account;
-        try:
-           with open(path+'resources/Alt_Login.csv', mode='r') as infile:
-               reader = csv.reader(infile)
-               dic = {rows[0]:rows[1] for rows in reader}
-           c=0
-        except:
-           with open(path+'resources/Login.csv', mode='r') as infile:
-               reader = csv.reader(infile)
-               dic = {rows[0]:rows[1] for rows in reader}
-           c=0
-      
+        with open(path+'resources/Login.csv', mode='r') as infile:
+           reader = csv.reader(infile)
+           dic = {rows[0]:rows[1] for rows in reader}
+        c=0
         for key, value in dic.iteritems():
             pre_defined_email = key
             pre_defined_password = value
