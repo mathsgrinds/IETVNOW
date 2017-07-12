@@ -44,41 +44,34 @@ __handle__ = int(sys.argv[1])
 path = sys.path[0]+"/"
 
 def login():
-    try:
-        #Load a Pre-Defined Account;
-        with open(path+'resources/Login.csv', mode='r') as infile:
-           reader = csv.reader(infile)
-           dic = {rows[0]:rows[1] for rows in reader}
-        c=0
-        for key, value in dic.iteritems():
-            pre_defined_email = key
-            pre_defined_password = value
-            t = (int((60*int(strftime("%H",gmtime()))+int(strftime("%M",gmtime())))/10))%len(dic)
-            c = (c)%len(dic)
-            if(c==t):
-                break
-            c += 1
+   try:
+      xbmc.executebuiltin('Notification(Login, Trying username and password)')
+      #Load a Pre-Defined Account;
+      usernames = ["walshmary1473182935@gmail.com ","walshmary1473182029@gmail.com ","walshmary1473181167@gmail.com ","walshmary1473180237@gmail.com ","walshmary1473179338@gmail.com ","walshmary1473178433@gmail.com ","walshmary1473177532@gmail.com ","walshmary1473176634@gmail.com ","walshmary1473175762@gmail.com ","walshmary1473174909@gmail.com ","walshmary1473174128@gmail.com ","walshmary1473173034@gmail.com ","walshmary1473172161@gmail.com ","walshmary1473171226@gmail.com ","walshmary1473170332@gmail.com ","walshmary1473169502@gmail.com ","walshmary1473168526@gmail.com ","walshmary1473167631@gmail.com ","walshmary1473166811@gmail.com ","walshmary1473165949@gmail.com ","walshmary1473165005@gmail.com ","walshmary1473164027@gmail.com ","walshmary1473163192@gmail.com ","walshmary1473162231@gmail.com ","walshmary1473161333@gmail.com ","walshmary1473160429@gmail.com ","walshmary1473159529@gmail.com ","walshmary1473158631@gmail.com ","walshmary1473157729@gmail.com ","walshmary1473156827@gmail.com ","walshmary1473155928@gmail.com ","walshmary1473155031@gmail.com ","walshmary1473154130@gmail.com ","walshmary1473153224@gmail.com ","walshmary1473152391@gmail.com ","walshmary1473151429@gmail.com ","walshmary1473150532@gmail.com ","walshmary1473149767@gmail.com ","walshmary1473148796@gmail.com ","walshmary1473147827@gmail.com ","walshmary1473146999@gmail.com ","walshmary1473146065@gmail.com ","walshmary1473145127@gmail.com ","walshmary1473144227@gmail.com ","walshmary1473143331@gmail.com ","walshmary1473142491@gmail.com ","walshmary1473141526@gmail.com ","walshmary1473140634@gmail.com ","walshmary1473139731@gmail.com ","walshmary1473138833@gmail.com ","walshmary1473137928@gmail.com ","walshmary1473137029@gmail.com ","walshmary1473136132@gmail.com ","walshmary1473135235@gmail.com ","walshmary1473134330@gmail.com ","walshmary1473133461@gmail.com ","walshmary1473132527@gmail.com ","walshmary1473131735@gmail.com ","walshmary1473130726@gmail.com ","walshmary1473129976@gmail.com ","walshmary1473128927@gmail.com ","walshmary1473128033@gmail.com ","walshmary1473127128@gmail.com ","walshmary1473126239@gmail.com ","walshmary1473124505@gmail.com ","walshmary1473123527@gmail.com ","walshmary1473122704@gmail.com ","walshmary1473121729@gmail.com ","walshmary1473120830@gmail.com ","walshmary1473119998@gmail.com ","walshmary1473119070@gmail.com ","walshmary1473118124@gmail.com ","walshmary1473117233@gmail.com ","walshmary1473116331@gmail.com ","walshmary1473115428@gmail.com ","walshmary1473114528@gmail.com ","walshmary1473113627@gmail.com ","walshmary1473112727@gmail.com ","walshmary1473111824@gmail.com ","walshmary1473110034@gmail.com ","walshmary1473109136@gmail.com ","walshmary1473107329@gmail.com ","walshmary1473107237@gmail.com ","walshmary1473104170@gmail.com ","walshmary1473102555@gmail.com ","walshmary1473101954@gmail.com ","walshmary1473101570@gmail.com ","walshmary1473100758@gmail.com ","walshmary1473100148@gmail.com ","walshmary1473099659@gmail.com ","walshmary1473099156@gmail.com ","walshmary1473098346@gmail.com ","walshmary1473097859@gmail.com ","walshmary1473097261@gmail.com ","walshmary1473096549@gmail.com ","walshmary1473095959@gmail.com ","walshmary1473095572@gmail.com ","walshmary1473094751@gmail.com ","walshmary1473094264@gmail.com ","walshmary1473093556@gmail.com ","walshmary1473092954@gmail.com ","walshmary1473092351@gmail.com ","walshmary1473092042@gmail.com ","walshmary1473091156@gmail.com ","walshmary1473090552@gmail.com ","walshmary1473090284@gmail.com ","walshmary1473089615@gmail.com ","walshmary1473088855@gmail.com ","walshmary1473088153@gmail.com ","walshmary1473087554@gmail.com ","walshmary1473086955@gmail.com ","walshmary1473086349@gmail.com ","walshmary1473085861@gmail.com ","walshmary1473085152@gmail.com ","walshmary1473084586@gmail.com ","walshmary1473083964@gmail.com ","walshmary1473083465@gmail.com ","walshmary1473082866@gmail.com ","walshmary1473082441@gmail.com ","walshmary1473081659@gmail.com ","walshmary1473080951@gmail.com ","walshmary1473080349@gmail.com ","walshmary1473079748@gmail.com ","walshmary1473079152@gmail.com ","walshmary1473078555@gmail.com ","walshmary1473078102@gmail.com ","walshmary1473077683@gmail.com ","walshmary1473076755@gmail.com ","walshmary1473076268@gmail.com ","walshmary1473075662@gmail.com ","walshmary1473075166@gmail.com ","walshmary1473074348@gmail.com ","walshmary1473073757@gmail.com ","walshmary1473073154@gmail.com ","walshmary1473072659@gmail.com ","walshmary1473072065@gmail.com ","walshmary1473071354@gmail.com ","walshmary1473070862@gmail.com ","walshmary1473070151@gmail.com ","walshmary1473069651@gmail.com ","walshmary1473069053@gmail.com ","walshmary1473068460@gmail.com","walshmary1473067749@gmail.com","walshmary1473067265@gmail.com","walshmary1473066550@gmail.com"]
+      t = (int((60*int(strftime("%H",gmtime()))+int(strftime("%M",gmtime())))/10))%144
+      pre_defined_email = usernames[t]
+      pre_defined_password = "Password0"
 
       #If there isn't both Email and Password set;
-        if not email and not password:
+      if not email and not password:
            
-            #Use a Pre-Defined Free Account;
-            req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':pre_defined_email, 'password':pre_defined_password}), useragent)
+         #Use a Pre-Defined Free Account;
+         req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':pre_defined_email, 'password':pre_defined_password}), useragent)
                
-        else:
+      else:
         
-            #Use the Account defined in Settings by the User;
-            req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':email, 'password':password}), useragent)
+         #Use the Account defined in Settings by the User;
+         req = urllib2.Request('http://api.aertv.ie/v2/users/login', urllib.urlencode({'email':email, 'password':password}), useragent)
                
-        #Output the JSON;
-        html = urllib2.urlopen(req).read()
-        return json.loads(html)
+      #Output the JSON;
+      html = urllib2.urlopen(req).read()
+      return json.loads(html)
         
-    except:
+   except:
     
-        #Notify the user that the Email and Password is incorrect;
-        xbmc.executebuiltin('Notification(Login Failed, username and/or password is incorrect.)')
-        return ""
+      #Notify the user that the Email and Password is incorrect;
+      xbmc.executebuiltin('Notification(Login Failed, username and/or password is incorrect.)')
+      return ""
 
 #Login;
 loginj = login()
