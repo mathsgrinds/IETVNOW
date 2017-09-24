@@ -269,6 +269,7 @@ def IrishTV():
       
 def OireachtasTV():
    try:
+      return "https://media.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8"
    except:
       xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
       return("")
