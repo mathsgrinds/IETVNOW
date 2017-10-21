@@ -120,6 +120,10 @@ def guide(channel):
                return " - Local Stories" #also breaks out of def;
            elif channel=="Oireachtas TV":
                return " - Parliamentary Television" #also breaks out of def;
+           elif channel=="Dail":
+               return " - Parliamentary Television" #also breaks out of def;
+           elif channel=="Seanad":
+               return " - Parliamentary Television" #also breaks out of def;
            elif channel=="RTE One +1":
                return " - RTE One 1 hour ago"
            
@@ -266,10 +270,24 @@ def IrishTV():
    except:
       xbmc.executebuiltin('Notification(Irish TV Error, Could not fetch channel URL)')
       return("")
-      
+
 def OireachtasTV():
    try:
       return "https://media.heanet.ie/oirlive/oireachtas/ngrp:oireachtas.stream_all/playlist.m3u8"
+   except:
+      xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
+      return("")
+     
+def Dail():
+   try:
+      return "https://media.heanet.ie/oirlive/dail/ngrp:dail.stream_all/playlist.m3u8"
+   except:
+      xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
+      return("")
+      
+def Seanad():
+   try:
+      return "https://media.heanet.ie/oirlive/seanad/ngrp:seanad.stream_all/playlist.m3u8"
    except:
       xbmc.executebuiltin('Notification(Oireachtas TV Error, Could not fetch channel URL)')
       return("")
@@ -286,7 +304,9 @@ def streams():
 {'name': parse('RTEjr'), 'thumb': path+'resources/logos/RTEjr.png', 'link': AerTV("rtejr")},
 {'name': parse('RTE One +1'), 'thumb': path+'resources/logos/RTE1_p1.png', 'link': AerTV("rte-one1")},
 {'name': parse('RTE News Now'), 'thumb': path+'resources/logos/RTE_News_Now.png', 'link': RTENewsNow()},
-{'name': parse('Oireachtas TV'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': OireachtasTV()}
+{'name': parse('Oireachtas TV'), 'thumb': path+'resources/logos/Oireachtas.png', 'link': OireachtasTV()},
+{'name': parse('Dail'), 'thumb': path+'resources/logos/Dail.png', 'link': Dail()},
+{'name': parse('Seanad'), 'thumb': path+'resources/logos/Seanad.png', 'link': Seanad()}
 ]
 
 def router(paramstring):
