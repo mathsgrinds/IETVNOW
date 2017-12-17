@@ -26,14 +26,15 @@ def str2bool(v):
 
 #Settings
 addon = xbmcaddon.Addon()
-quality = str(addon.getSetting('quality'))
+
 Guide = str2bool(addon.getSetting('guide'))
 RTENewsNowPreferredStream = str(addon.getSetting('RTENewsNowpreferredstream'))
 TG4PreferredStream = str(addon.getSetting('TG4preferredstream'))
 TV3PreferredStream = str(addon.getSetting('TV3preferredstream'))
-be3PreferredStream = str(addon.getSetting('be3preferredstream'))
 ThreeEPreferredStream = str(addon.getSetting('ThreeEpreferredstream'))
-UTVPreferredStream = str(addon.getSetting('UTVpreferredstream'))
+be3PreferredStream = str(addon.getSetting('be3preferredstream'))
+quality = str(addon.getSetting('quality'))
+
 email = str(addon.getSetting('email'))
 password = str(addon.getSetting('password'))
 
@@ -99,7 +100,8 @@ def AerTV(channel):
         #If the HD Variable has no Stream Link (e.x RTEjr);
         if not HD:
             HD = SD #Set the HD Variable's link to the SD Link;
-            
+
+
     #Return Stream based on the Quality Setting;
     if quality == "SD":
         return SD
@@ -202,8 +204,6 @@ def TG4():
          return AerTV("tg4")
       elif TG4PreferredStream == "TG4.ie":
          return scrape_m3u8("http://www.tg4.ie/en/live/home/")
-      elif TG4PreferredStream == "Perma Link":
-         return('http://tg4-lh.akamaihd.net/EirBeo1_1200_tg4@118693?videoId=2538842141001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&lineUpId;=&pubId=1290862567001&playerId=1364138050001&affiliateId;=&bandwidthEstimationTest=false&v=3.3.0&fp=WIN_13,0,0,2&r=MWDOQ&g=TPANMNTKXCBN')
    except:
       xbmc.executebuiltin('Notification(TG4, Could not fetch channel URL)')
       return("")
@@ -295,8 +295,8 @@ def Seanad():
 
 def streams():
     return [
-{'name': parse('RTE One'), 'thumb': path+'resources/logos/RTE1.png', 'link': AerTV("rte-one")},
-{'name': parse('RTE Two'), 'thumb': path+'resources/logos/RTE2.png', 'link': AerTV("rte-two")},
+{'name': parse('RTE One'), 'thumb': path+'resources/logos/RTE1.png', 'link': AerTV('rte-one')},
+{'name': parse('RTE Two'), 'thumb': path+'resources/logos/RTE2.png', 'link': AerTV('rte-two')},
 {'name': parse('TV3'), 'thumb': path+'resources/logos/TV3.png', 'link': TV3()},
 {'name': parse('tg4'), 'thumb': path+'resources/logos/TG4.png', 'link': TG4()},
 {'name': parse('3e'), 'thumb': path+'resources/logos/3e.png', 'link': ThreeE()},
